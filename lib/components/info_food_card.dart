@@ -9,12 +9,16 @@ class InfoFoodCard extends StatelessWidget {
     this.title = "",
     this.subtitle = "",
     this.value = "",
+    /// Default is false
+    this.selectedHeart = false,
   });
 
   final String url;
   final String title;
   final String subtitle;
   final String value;
+    /// Default is false
+  final bool selectedHeart;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +59,9 @@ class InfoFoodCard extends StatelessWidget {
                       backgroundColor: Colors.black,
                       borderRadius: BorderRadius.circular(100),
                       child: Icon(
-                        FontAwesomeIcons.heart,
+                        selectedHeart
+                            ? FontAwesomeIcons.heartCircleCheck
+                            : FontAwesomeIcons.heart,
                         size: 11,
                         color: Colors.white,
                       ),

@@ -3,30 +3,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:miu_lanches/components/base_card.dart';
 import 'package:miu_lanches/components/base_text_field.dart';
 import 'package:miu_lanches/components/info_food_card.dart';
+import 'package:miu_lanches/controllers/product_detail_controller.dart';
+import 'package:provider/provider.dart';
 
-class ProductDetailPage extends StatefulWidget {
+class ProductDetailPage extends StatelessWidget {
   const ProductDetailPage({super.key});
-
-  @override
-  State<ProductDetailPage> createState() => _ProductDetailPageState();
-}
-
-class _ProductDetailPageState extends State<ProductDetailPage> {
-  int amountProduct = 1;
-
-  void _addProduct() {
-    setState(() {
-      // amountProduct = amountProduct + 1;
-      //  amountProduct += 1;
-      amountProduct++;
-    });
-  }
-
-  void _removeProduct() {
-    setState(() {
-      amountProduct = amountProduct - 1;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,9 +98,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     Row(
                       children: [
                         _setAmountButton(
-                            icon: Icons.add,
+                            icon: Icons.remove,
                             onPressed: () {
-                              _addProduct();
+                              context
+                                  .read<ProductDetailController>()
+                                  .decrement();
                             }),
                         Padding(
                           padding: const EdgeInsets.only(
@@ -131,7 +114,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             height: 35,
                             child: BaseTextField(
                               borderRadius: 5,
-                              text: amountProduct.toString(),
+                              text: context
+                                  .watch<ProductDetailController>()
+                                  .counter
+                                  .toString(),
                               centerText: true,
                               style: TextStyle(
                                 fontWeight: FontWeight.w800,
@@ -142,9 +128,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           ),
                         ),
                         _setAmountButton(
-                            icon: Icons.remove,
+                            icon: Icons.add,
                             onPressed: () {
-                              _removeProduct();
+                              context
+                                  .read<ProductDetailController>()
+                                  .increment();
                             }),
                       ],
                     ),

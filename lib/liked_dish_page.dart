@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+
+import 'package:provider/provider.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:miu_lanches/components/base_card.dart';
 import 'package:miu_lanches/components/info_food_card.dart';
+import 'package:miu_lanches/controllers/liked_dish_controller.dart';
+import 'package:miu_lanches/product_detail_page.dart';
 
 class LikedDishPage extends StatelessWidget {
   const LikedDishPage({super.key});
@@ -35,12 +40,18 @@ class LikedDishPage extends StatelessWidget {
                   ],
                 ),
               ),
-              InfoFoodCard(
-                url:
-                    "https://veganhuggs.com/wp-content/uploads/2020/03/easy-vegan-chickpea-curry-5.jpg",
-                title: "Vegan Chickpea Curry",
-                subtitle: "Moong dal (split mung beans) are...",
-                value: "R\$ 150",
+              GestureDetector(
+                child: InfoFoodCard(
+                  selectedHeart: context.watch<LikedDishController>().selectedHeart,
+                  url:
+                      "https://veganhuggs.com/wp-content/uploads/2020/03/easy-vegan-chickpea-curry-5.jpg",
+                  title: "Vegan Chickpea Curry",
+                  subtitle: "Moong dal (split mung beans) are...",
+                  value: "R\$ 150",
+                ),
+                onTap: () {
+                context.read<LikedDishController>().selected();
+                },
               ),
               InfoFoodCard(
                 url:
